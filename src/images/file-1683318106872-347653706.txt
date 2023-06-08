@@ -1,0 +1,57 @@
+#11.1
+import os
+import requests # pip install requests
+
+# Создаем директорию для сохранения файлов, если ее нет
+if not os.path.exists('images'):
+    os.mkdir('images')
+
+# URL-адреса изображений для загрузки
+image_urls = [
+    'https://picsum.photos/200',
+    'https://picsum.photos/300',
+    'https://picsum.photos/400',
+    'https://picsum.photos/500',
+    'https://picsum.photos/600'
+]
+
+# Скачиваем изображения и сохраняем их в директории images
+for i, url in enumerate(image_urls):
+    response = requests.get(url)
+    filename = f'image_{i}.jpg'
+    filepath = os.path.join('images', filename)
+    with open(filepath, 'wb') as f:
+        f.write(response.content)
+
+# Печатаем список загруженных файлов
+file_list = os.listdir('images')
+print(f'Загружено {len(file_list)} файлов:')
+for file in file_list:
+    print(file)
+
+#11.2
+from tkinter import *
+
+# Создаем окно
+root = Tk()
+
+# Задаем размер окна
+root.geometry("400x400")
+
+# Создаем объект Canvas и задаем его размеры
+canvas = Canvas(root, width=450, height=450)
+
+# Рисуем круг в центре холста
+canvas.create_oval(5, 5, 395, 395, fill="orange")
+
+# Рисуем буквы "D", "I", "A" и "C" внутри круга
+canvas.create_text(75, 200, text="D", font=("Helvetica", 100))
+canvas.create_text(150, 200, text="I", font=("Helvetica", 100))
+canvas.create_text(225, 200, text="A", font=("Helvetica", 100))
+canvas.create_text(320, 200, text="C", font=("Helvetica", 100))
+
+# Выводим холст на экран
+canvas.pack()
+
+# Запускаем главный цикл обработки событий
+root.mainloop()
